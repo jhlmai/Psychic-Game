@@ -1,25 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Psychic Game</title>
 </head>
+
 <body>
     <h1>The Psychic Game</h1>
-    <p>Guess what letter I'm thinking of</p>
+    <p>Guess what letter I'm thinking of.</p>
+    <h4>Wins:
+        <p id="wins"></p>
+    </h4>
+    <h4>Losses:
+        <p id="losses"></p>
+    </h4>
+    <h4>Guesses Left:
+        <p id="guessesLeft"></p>
+    </h4>
+    <h4>Your guesses so far:
+        <p id="userGuesses"></p>
+    </h4>
     <script>
-        // game setup
-    var wins = 0;
-    var losses = 0;
-    var guessesLeft = 9;
-    var computerChoices = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-    var UserGuesses = []
 
-    // computer to select a random lowercase letter from the PossibleLetters array
-    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+        // game setup
+        var wins = 0;
+        var losses = 0;
+        var guessesLeft = 9;
+        var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+        var userGuesses = [];
+
+        // computer to select a random lowercase letter from the PossibleLetters array
+        var computerGuess = letters[Math.floor(Math.random() * letters.length)];
+    
+
+        document.onkeyup = function (event) {
+            // change computer guess to lower case
+            var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+
+            // push upon a new userGuess onto the userGuesses array
+            userGuesses.push(" " + userGuess);
+
+
+           
+
+            // add to wins when correct key pressed
+            document.getElementById("wins").innerHTML = + wins;
+
+            // add to losses when incorrect key is pushed
+            document.getElementById("losses").innerHTML = + losses;
+
+            // display the contents of the userGuesses array to the user
+            document.getElementById("userGuesses").innerHTML = userGuesses;
+
+            // subtract from the guesses left for each user guess
+            document.getElementById("guessesLeft").innerHTML = guessesLeft;
+            // if the userGuess matches the computerGuess
+            if (userGuess === computerGuess) {
+                // increment the wins counter by 1 
+                wins++;
+                guessesLeft = 9;
+                userGuesses = [];
+                
+                
+
+            } else {
+                // otherwise increment the losses by 1 
+                losses++;
+            }
+
+            // guessesLeft will decrease by 1
+            guessesLeft--;
+            }
+
+            // when number of guessesLeft = 0, 
+            if (guessesLeft = 0) {
+                confirm ("you lose!");
+            }
+
 
     </script>
 </body>
+
 </html>
