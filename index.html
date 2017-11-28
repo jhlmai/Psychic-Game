@@ -32,22 +32,26 @@
         var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
         var userGuesses = [];
 
+        // Reset function
+        var reset = function () {
+            guessesLeft = 10;
+            userGuesses = [];
+        }
         // computer to select a random lowercase letter from the PossibleLetters array
         var computerGuess = letters[Math.floor(Math.random() * letters.length)];
-    
+
 
         document.onkeyup = function (event) {
+
             // change computer guess to lower case
             var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 
             // push upon a new userGuess onto the userGuesses array
             userGuesses.push(" " + userGuess);
 
-
-           
-
             // add to wins when correct key pressed
             document.getElementById("wins").innerHTML = + wins;
+
 
             // add to losses when incorrect key is pushed
             document.getElementById("losses").innerHTML = + losses;
@@ -57,28 +61,34 @@
 
             // subtract from the guesses left for each user guess
             document.getElementById("guessesLeft").innerHTML = guessesLeft;
+
             // if the userGuess matches the computerGuess
             if (userGuess === computerGuess) {
                 // increment the wins counter by 1 
                 wins++;
-                guessesLeft = 9;
-                userGuesses = [];
-                
-                
+                reset();
+                computerGuess = letters[Math.floor(Math.random() * letters.length)];
 
             } else {
                 // otherwise increment the losses by 1 
-                losses++;
+                guessesLeft--;
             }
+            if (guessesLeft === 0) {
+                losses++;
+                reset();
+                computerGuess = letters[Math.floor(Math.random() * letters.length)];
+            }
+
+        }
 
             // guessesLeft will decrease by 1
-            guessesLeft--;
-            }
+            // if (userGuess !== computerGuess) {
+            //     guessesLeft--;
+        // }
 
-            // when number of guessesLeft = 0, 
-            if (guessesLeft = 0) {
-                confirm ("you lose!");
-            }
+
+
+
 
 
     </script>
